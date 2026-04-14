@@ -94,6 +94,14 @@ Each report contains:
 
 Reports are saved as markdown files under `output/`.
 
+## Documentation pack for demo
+
+Detailed demo artifacts are available under `docs/`:
+- `docs/01_Architecture_Document.md`
+- `docs/02_Functional_Specification.md`
+- `docs/03_Demo_Runbook.md`
+- `docs/screenshots/README.md`
+
 ## Known limitations and fallback behavior
 
 - Repository-level review only (no deep AST/static analysis).
