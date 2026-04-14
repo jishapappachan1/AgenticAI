@@ -1,0 +1,16 @@
+# Python cache / env
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local runtime/generated artifacts
+.archlens_tmp/
+output/
+
+# Secrets
+.env
+
+# Editor / OS
+.DS_Store
+Thumbs.db
