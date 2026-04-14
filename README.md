@@ -53,6 +53,7 @@ User Input (repo URL/path + optional focus)
       ├─ __init__.py
       ├─ base.py
       └─ gemini_client.py
+      └─ mock_client.py
 ```
 
 ## Setup
@@ -76,6 +77,13 @@ streamlit run app.py
 python cli.py "https://github.com/owner/repo" --focus "Look for layering issues"
 ```
 
+## Quick demo flow
+
+1. Open the Streamlit app.
+2. Enter a public GitHub repository URL.
+3. Click **Run Architecture Review**.
+4. Review sections in the UI and download the generated markdown report.
+
 ## Output format
 
 Each report contains:
@@ -85,3 +93,16 @@ Each report contains:
 - Recommendations
 
 Reports are saved as markdown files under `output/`.
+
+## Known limitations and fallback behavior
+
+- Repository-level review only (no deep AST/static analysis).
+- Reasoning quality depends on available LLM quota and model access.
+- If Gemini quota is unavailable (`429`), the app automatically switches to **mock-learning mode**.
+- Mock mode preserves pipeline behavior for learning and demos, but recommendations are illustrative.
+
+## Security notes
+
+- Never commit `.env` with real API keys.
+- Use `.env.example` for sharing configuration templates.
+- Rotate API keys if they were exposed in screenshots, logs, or chats.
