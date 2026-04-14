@@ -8,6 +8,10 @@ Add demo screenshots in this folder using the exact filenames referenced by `doc
 - `04_download_report.png`
 - `05_quota_fallback_mock_mode.png`
 
+Current status:
+- I have pre-populated these files using the screenshots shared during implementation/debugging.
+- You can replace any image with a cleaner final demo capture while keeping the same filename.
+
 Recommended capture tips:
 - Use browser zoom 100% for consistency.
 - Hide unrelated browser tabs/notifications.
