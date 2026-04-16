@@ -3,30 +3,30 @@
 ArchLens is a beginner-friendly Agentic AI mini-project that reviews a repository's high-level architecture and produces a structured markdown report.
 
 It is intentionally scoped for learning:
-- Single agent
-- Read-only analysis
+- Multi-agent orchestration (planner, analyzer, reviewer)
+- Tool-calling execution for deterministic repository operations
+- Persistent run memory for previous-review recall
 - Repository-structure reasoning (not full static analysis)
 - Streamlit-first UX, CLI as backup
 
 ## Why this demonstrates Agentic AI
 
-This project follows an explicit agent loop:
+This project follows an explicit multi-agent loop:
 
-1. **Observe** - `repo_ingestor.py` gathers deterministic repository facts.
-2. **Analyze** - `code_analyzer.py` extracts structural metadata.
-3. **Reason** - `architecture_agent.py` sends structured context to the LLM.
-4. **Act** - the agent normalizes model output into a strict report contract.
+1. **Plan** - planner agent creates tool sequence.
+2. **Observe + Analyze** - analyzer agent calls tools to ingest and extract deterministic metadata.
+3. **Recall** - memory store loads previous run summaries when available.
+4. **Reason** - reviewer agent synthesizes evidence into strict JSON review output.
 5. **Output** - `report_generator.py` renders markdown with recommendations.
 
 ## Textual architecture diagram
 
 User Input (repo URL/path + optional focus)  
 -> Streamlit `app.py` or `cli.py`  
--> `ArchitectureAgent.run()`  
--> Observe: `repo_ingestor.ingest_repository()`  
--> Analyze: `code_analyzer.analyze_codebase()`  
--> Reason: `GeminiClient.generate()` with structured prompt  
--> Act: parse + normalize into `ArchitectureReview` model  
+-> `MultiAgentArchitecturePipeline.run()`  
+-> Planner Agent: build tool sequence  
+-> Analyzer Agent: tool calls (`load_previous_summary`, `ingest_repository`, `analyze_codebase`, `read_key_file`)  
+-> Reviewer Agent: `GeminiClient.generate()` with structured evidence payload  
 -> Output: `report_generator.render_markdown_report()` and save in `output/`
 
 ## Project structure
@@ -42,11 +42,14 @@ User Input (repo URL/path + optional focus)
 ├─ prompts/
 │  └─ architecture_review_prompt.md
 └─ src/
-   ├─ __init__.py
-   ├─ architecture_agent.py
+   ├─ agents/
+   ├─ memory/
+   ├─ tools/
+   ├─ multi_agent_pipeline.py
    ├─ code_analyzer.py
    ├─ config.py
    ├─ models.py
+   ├─ pipeline_models.py
    ├─ repo_ingestor.py
    ├─ report_generator.py
    └─ llm/

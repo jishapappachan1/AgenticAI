@@ -16,6 +16,7 @@ class Settings:
     max_files_to_scan: int = 2000
     max_readme_chars: int = 3000
     clone_root: str = ".archlens_tmp"
+    memory_db_path: str = ".archlens_tmp/archlens_memory.db"
 
 
 def get_settings() -> Settings:
@@ -30,4 +31,8 @@ def get_settings() -> Settings:
         max_files_to_scan=int(os.getenv("MAX_FILES_TO_SCAN", "2000")),
         max_readme_chars=int(os.getenv("MAX_README_CHARS", "3000")),
         clone_root=os.getenv("CLONE_ROOT", ".archlens_tmp").strip(),
+        memory_db_path=os.getenv(
+            "MEMORY_DB_PATH",
+            ".archlens_tmp/archlens_memory.db",
+        ).strip(),
     )
